@@ -6,7 +6,7 @@ env:
   # the same ssh-agent socket value across all jobs & steps.
   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
   INFRACOST_API_KEY: ico-d9viYenQaIkAXcf3LEUXqFfuT1DRhrwo
-  TF_ROOT: infra_cost_plan.yml
+  TF_ROOT: plan/cost 
 jobs:
   infracost:
     name: Infracost
@@ -16,7 +16,7 @@ jobs:
       pull-requests: write
 
     env:
-      TF_ROOT: examples/terraform-project/code
+      TF_ROOT: plan/cost
       # If you're using Terraform Cloud/Enterprise and have variables or private modules stored
       # on there, specify the following to automatically retrieve the variables:
       #   INFRACOST_TERRAFORM_CLOUD_TOKEN: ${{ secrets.TFC_TOKEN }}
