@@ -64,7 +64,7 @@ jobs:
       # Generate an Infracost diff and save it to a JSON file.
       - name: Generate Infracost diff
         run: |
-          infracost diff --path=${TF_ROOT} --compare-to=/tmp/ --out-file=/tmp/infracost-base.json
+          infracost diff --path=${TF_ROOT} --compare-to=/tmp/infracost-base.json
           
       # --format=json 
       #- name: Show infra cost diff from existing plan 
