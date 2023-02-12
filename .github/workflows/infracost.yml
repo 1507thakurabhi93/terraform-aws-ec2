@@ -53,9 +53,12 @@ jobs:
         #                      --format=json \
        #                       --out-file=/tmp/infracost-base.json
 
-      #- name: SHow Infracost cost estimate baseline
-      #  run: |
-      #    cat /tmp/infracost-base.json
+      - name: Generate Infracost cost estimate baseline
+        run: |
+          infracost breakdown --path=${TF_ROOT} 
+                              --format=json \
+                              --out-file=/tmp/infracost-base.json
+
           
       # Checkout the current PR branch so we can create a diff.
       - name: Checkout PR branch
@@ -64,12 +67,14 @@ jobs:
       # Generate an Infracost diff and save it to a JSON file.
       - name: Generate Infracost diff
         run: |
-          infracost diff --path=${TF_ROOT} --compare-to=/tmp/ --out-file=/tmp/infracost-base.json
+          infracost diff --path=${TF_ROOT} --compare-to=${TF_ROOT}/infracost-base.json
           
-      # --format=json 
-      #- name: Show infra cost diff from existing plan 
-      #  run: |
-      #    cat /tmp/infracost.json
+      - name: Generate Infracost diff to publish on PR 
+        run: |
+          infracost diff --path=${TF_ROOT} \
+                          --format=json \
+                          --compare-to=${TF_ROOT}/infracost-base.json \
+                          --out-file=/tmp/infracost.json
           
       # Posts a comment to the PR using the 'update' behavior.
       # This creates a single comment and updates it. The "quietest" option.
