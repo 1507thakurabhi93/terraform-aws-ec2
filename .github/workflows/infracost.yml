@@ -53,6 +53,10 @@ jobs:
                               --format=json \
                               --out-file=/tmp/infracost-base.json
 
+      - name: SHow Infracost cost estimate baseline
+        run: |
+          cat /tmp/infracost-base.json
+          
       # Checkout the current PR branch so we can create a diff.
       - name: Checkout PR branch
         uses: actions/checkout@v3
@@ -64,7 +68,11 @@ jobs:
                           --format=json \
                           --compare-to=/tmp/infracost-base.json \
                           --out-file=/tmp/infracost.json
-
+                          
+      - name: Show infra cost diff from existing plan 
+        run: |
+          cat /tmp/infracost.json
+          
       # Posts a comment to the PR using the 'update' behavior.
       # This creates a single comment and updates it. The "quietest" option.
       # The other valid behaviors are:
