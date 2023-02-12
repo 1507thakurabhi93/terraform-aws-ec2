@@ -20,6 +20,31 @@ resource "aws_instance" "instance" {
   }
 }
 
+resource "aws_eks_cluster" "example" {
+  name     = "example"
+  role_arn = "${aws_iam_role.example.arn}"
+
+  vpc_config {
+    subnet_ids = ["${aws_subnet.example1.id}", "${aws_subnet.example2.id}"]
+  }
+
+  # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
+  # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
+  depends_on = [
+    "aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy",
+    "aws_iam_role_policy_attachment.example-AmazonEKSServicePolicy",
+  ]
+}
+
+resource "aws_redshift_cluster" "default" {
+  cluster_identifier = "tf-redshift-cluster"
+  database_name      = "mydb"
+  master_username    = "foo"
+  master_password    = "Mustbe8characters"
+  node_type          = "dc1.large"
+  cluster_type       = "single-node"
+}
+
 resource "aws_vpc" "vpc" {
   cidr_block           = "${var.vpc-cidr-block}"
   enable_dns_hostnames = true
