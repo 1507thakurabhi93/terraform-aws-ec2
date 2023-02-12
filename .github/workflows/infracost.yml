@@ -6,6 +6,7 @@ env:
   # the same ssh-agent socket value across all jobs & steps.
   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
   INFRACOST_API_KEY: ico-d9viYenQaIkAXcf3LEUXqFfuT1DRhrwo
+  TF_ROOT: infra_cost_plan.yml
 jobs:
   infracost:
     name: Infracost
