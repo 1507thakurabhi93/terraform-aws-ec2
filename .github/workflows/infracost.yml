@@ -5,6 +5,7 @@ env:
   # If you use private modules you'll need this env variable to use
   # the same ssh-agent socket value across all jobs & steps.
   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+  INFRACOST_API_KEY: ico-d9viYenQaIkAXcf3LEUXqFfuT1DRhrwo
 jobs:
   infracost:
     name: Infracost
