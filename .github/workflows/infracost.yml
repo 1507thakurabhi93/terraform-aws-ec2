@@ -64,7 +64,7 @@ jobs:
       # Generate an Infracost diff and save it to a JSON file.
       - name: Generate Infracost diff
         run: |
-          infracost diff --path=${TF_ROOT} --compare-to=/tmp/ --out-file=/tmp/infracost-base.json
+          infracost diff --path=${TF_ROOT} --compare-to=infracost-base.json
           
       # --format=json 
       #- name: Show infra cost diff from existing plan 
@@ -80,7 +80,7 @@ jobs:
       # See https://www.infracost.io/docs/features/cli_commands/#comment-on-pull-requests for other options.
       - name: Post Infracost comment
         run: |
-            infracost comment github --path=/tmp/infracost.json \
+            infracost comment github --path=infracost.json \
                                      --repo=$GITHUB_REPOSITORY \
                                      --github-token=${{github.token}} \
                                      --pull-request=${{github.event.pull_request.number}} \
